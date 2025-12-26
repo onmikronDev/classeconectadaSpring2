@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classe Conectada</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <script src="../js/index.js" defer></script>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo">
+    <img
+      src="../img/classe-conectada-icon_Version11.svg"
+      alt="Classe Conectada"
+      class="site-logo"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="sr-only">Classe Conectada</span>
+  </div>
+</header>
+
+<main class="menu-container">
+  <button class="menu-button" onclick="window.location.href='../html/turma.html'">
+    <span class="icon">&#9733;</span> Turmas
+  </button>
+  <button class="menu-button" id="relatorioBtn">
+    <span class="icon">&#128214;</span> Relatório
+  </button>
+  <button class="menu-button" onclick="window.location.href='../html/cadrastro.html'">
+    <span class="icon">&#9997;</span> Cadastro
+  </button>
+  <button class="menu-button" onclick="window.location.href='../html/usuarios.html'">
+    <span class="icon">&#128101;</span> Usuários
+  </button>
+</main>
+
+<!-- Modal de Relatório -->
+<div id="relatorioModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeRelatorioModal">&times;</span>
+    <h2>Relatório de Alunos</h2>
+    <div id="turmasContainer">
+      <h3>Selecione uma Turma</h3>
+      <ul id="turmasList"></ul>
+    </div>
+    <div id="alunosContainer" style="display: none;">
+      <h3>Lista de Alunos</h3>
+      <ul id="alunosList"></ul>
+    </div>
+    <div id="materiasContainer" style="display:  none;">
+      <h3>Médias por Matéria</h3>
+      <ul id="materiasList"></ul>
+    </div>
+  </div>
+</div>
+
+<footer class="custom-footer">
+  <p>&copy; 2025 Classe Conectada.  Todos os direitos reservados. </p>
+</footer>
+
+</body>
+</html>

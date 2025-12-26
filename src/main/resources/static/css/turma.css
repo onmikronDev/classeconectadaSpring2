@@ -1,0 +1,264 @@
+/* Estilo Global */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #2c2c2c; /* Fundo principal escuro */
+  color: white;
+  height: 100vh; /* Ocupa toda a altura */
+  display: flex;
+  flex-direction: column; /* Layout vertical */
+}
+
+/* Cabeçalho */
+.main-header {
+  background-color: #4D8889;
+
+  text-align: center; /* Centraliza o texto */
+  padding: 32px 24px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+
+}
+
+
+
+
+.logo {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+/* Logo */
+.site-logo {
+  display: block;
+  width: clamp(150px, 50vw, 150px);
+  height: auto;
+  max-width: 95vw;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+
+
+.main-header h1 {
+  margin: 0;
+  font-size: 32px; /* Ajusta o tamanho do título */
+}
+
+.button-section {
+  display: flex;
+  justify-content: center; /* Centraliza os botões */
+  gap: 15px; /* Espaçamento entre botões */
+  margin-top: 20px;
+}
+
+.button {
+  padding: 12px 24px;
+  background-color: #45A049; /* Fundo padrão verde */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #66BB6A;
+  transform: scale(1.05);
+}
+
+/* Contêiner Principal */
+.container {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #346767;
+}
+
+/* Listas */
+.list-section {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+}
+
+.list {
+  flex: 1;
+  background-color: #2E6264;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.list h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid white;
+}
+
+.list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list ul li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  margin: 10px 0;
+  background-color: #346767;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  align-items: center; /* Alinha botões com nomes */
+  transition: background-color 0.3s ease;
+}
+
+.list ul li.selected {
+  background-color: #254C50; /* Fundo mais escuro para aluno selecionado */
+  border: 2px solid #58D68D; /* Borda verde para destaque */
+  font-weight: bold; /* Texto em negrito */
+}
+
+.list ul li:hover {
+  background-color: #2C5054;
+}
+
+/* Botões de Presença ao lado dos alunos */
+.presence-options {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+.presence-options button {
+  padding: 8px 15px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.presence-options .present {
+  background-color: #58D68D; /* Verde claro para presença */
+}
+
+.presence-options .absent {
+  background-color: #E74C3C; /* Vermelho para falta */
+}
+
+.presence-options .justified {
+  background-color: #F1C40F; /* Amarelo para justificativa */
+}
+
+.presence-options button:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #346767;
+  color: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #2E6264;
+  border: none;
+  border-radius: 5px;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+.submit-button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #45A049;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #66BB6A;
+  transform: scale(1.05);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+}
+
+.custom-footer {
+  background-color: #4D8889;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: auto;
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5);
+}

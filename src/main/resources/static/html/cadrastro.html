@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Classe Conectada</title>
+  <link rel="stylesheet" href="../css/cadrastro.css">
+  <script src="../js/cadrastro.js" defer></script>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo">
+    <img
+      src="../img/classe-conectada-icon_Version11.svg"
+      alt="Classe Conectada"
+      class="site-logo"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="sr-only">Classe Conectada</span>
+  </div>
+</header>
+
+<main class="cadastro-container">
+  <h1 class="page-title">Cadastro</h1>
+
+  <!-- Abas de Seleção -->
+  <div class="tabs">
+    <button class="tab-button active" data-tab="professor">Professor</button>
+    <button class="tab-button" data-tab="aluno">Aluno</button>
+    <button class="tab-button" data-tab="diretor">Diretor</button>
+  </div>
+
+  <!-- Formulário -->
+  <form id="cadastroForm" class="cadastro-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="nomeCompleto">Nome Completo: </label>
+        <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+      </div>
+      <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="endereco">Endereço:</label>
+      <input type="text" id="endereco" name="endereco" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="pai">Pai:</label>
+        <input type="text" id="pai" name="pai">
+      </div>
+      <div class="form-group">
+        <label for="mae">Mãe:</label>
+        <input type="text" id="mae" name="mae">
+      </div>
+    </div>
+
+    <!-- Campos Dinâmicos (Professor) -->
+    <div id="professorFields" class="dynamic-fields">
+      <div class="form-group">
+        <label for="turma">Turma:</label>
+        <select id="turma" name="turma">
+          <option value="">Selecione uma turma</option>
+          <option value="Turma A">Turma A</option>
+          <option value="Turma B">Turma B</option>
+          <option value="Turma C">Turma C</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="materia">Matéria:</label>
+        <select id="materia" name="materia">
+          <option value="">Selecione uma matéria</option>
+          <option value="Matemática">Matemática</option>
+          <option value="Português">Português</option>
+          <option value="Ciências">Ciências</option>
+          <option value="Geografia">Geografia</option>
+          <option value="História">História</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Campos Dinâmicos (Aluno) -->
+    <div id="alunoFields" class="dynamic-fields" style="display: none;">
+      <div class="form-group">
+        <label for="turmaAluno">Turma:</label>
+        <select id="turmaAluno" name="turmaAluno">
+          <option value="">Selecione uma turma</option>
+          <option value="Turma A">Turma A</option>
+          <option value="Turma B">Turma B</option>
+          <option value="Turma C">Turma C</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Campos Dinâmicos (Diretor) - Sem campos extras -->
+    <div id="diretorFields" class="dynamic-fields" style="display: none;">
+      <!-- Diretor não tem campos extras -->
+    </div>
+
+    <!-- Observações -->
+    <div class="form-group">
+      <label for="observacoes">Observações:</label>
+      <textarea id="observacoes" name="observacoes" rows="4"></textarea>
+    </div>
+
+    <!-- Botões -->
+    <div class="form-actions">
+      <button type="submit" class="submit-button">Enviar</button>
+      <button type="button" class="cancel-button" onclick="window.location.href='../html/index.html'">Voltar</button>
+    </div>
+  </form>
+</main>
+
+<footer class="custom-footer">
+  <p>&copy; 2025 Classe Conectada.  Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

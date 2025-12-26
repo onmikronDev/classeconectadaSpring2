@@ -1,0 +1,40 @@
+<!-- Ícone quadrado (favicon/app icon) -->
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Classe Conectada - Ícone">
+  <defs>
+    <linearGradient id="gc-accent3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#58D68D"/>
+      <stop offset="100%" stop-color="#45A049"/>
+    </linearGradient>
+    <linearGradient id="gc-surface3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E6264"/>
+      <stop offset="100%" stop-color="#346767"/>
+    </linearGradient>
+  </defs>
+
+  <!-- anel externo formato C -->
+  <path d="M128,20
+           a108,108 0 1,0 0,216
+           m0,-26
+           a82,82 0 1,1 0,-164"
+        fill="none" stroke="#2E6264" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- nós -->
+  <circle cx="72" cy="128" r="10" fill="url(#gc-accent3)" stroke="#2E6264" stroke-width="4"/>
+  <circle cx="156" cy="76" r="10" fill="url(#gc-accent3)" stroke="#2E6264" stroke-width="4"/>
+  <circle cx="188" cy="156" r="10" fill="url(#gc-accent3)" stroke="#2E6264" stroke-width="4"/>
+
+  <!-- livro -->
+  <path d="M84 116
+           c0 -12 14 -22 30 -22
+           c20 0 36 8 48 18
+           c12 -10 28 -18 48 -18
+           c16 0 30 10 30 22
+           v64
+           c-9 -9 -24 -14 -40 -14
+           c-16 0 -32 7 -40 18
+           c-8 -11 -24 -18 -40 -18
+           c-16 0 -31 5 -40 14
+           z"
+        fill="url(#gc-surface3)" stroke="#284F51" stroke-width="5"/>
+  <rect x="144" y="122" width="8" height="24" rx="3" fill="url(#gc-accent3)"/>
+</svg>

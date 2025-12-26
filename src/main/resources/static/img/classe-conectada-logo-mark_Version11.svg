@@ -1,0 +1,36 @@
+<!-- Marca quadrada (ícone) para favicon/app icon -->
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Classe Conectada Mark">
+  <defs>
+    <linearGradient id="pageGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E6264"/>
+      <stop offset="100%" stop-color="#346767"/>
+    </linearGradient>
+    <linearGradient id="accentGrad2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#58D68D"/>
+      <stop offset="100%" stop-color="#45A049"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fundo transparente com anel -->
+  <circle cx="128" cy="128" r="104" fill="none" stroke="#2E6264" stroke-width="12"/>
+
+  <!-- Livro aberto central -->
+  <path d="M80 88
+           c0 -11 13 -20 30 -20
+           c22 0 40 9 54 20
+           c14 -11 32 -20 54 -20
+           c17 0 30 9 30 20
+           v80
+           c-9 -9 -24 -14 -40 -14
+           c-18 0 -34 7 -44 18
+           c-10 -11 -26 -18 -44 -18
+           c-16 0 -31 5 -40 14
+           z"
+        fill="url(#pageGrad2)" stroke="#284F51" stroke-width="5" />
+
+  <!-- Conexões -->
+  <path d="M98 136 L140 116 L174 150" stroke="url(#accentGrad2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="98" cy="136" r="9" fill="#58D68D" stroke="#2E6264" stroke-width="3.5"/>
+  <circle cx="140" cy="116" r="9" fill="#58D68D" stroke="#2E6264" stroke-width="3.5"/>
+  <circle cx="174" cy="150" r="9" fill="#58D68D" stroke="#2E6264" stroke-width="3.5"/>
+</svg>

@@ -1,0 +1,56 @@
+<!-- Logotipo completo (marca + wordmark) para cabeçalho -->
+<svg width="1024" height="256" viewBox="0 0 1024 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Classe Conectada Logo">
+  <defs>
+    <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E6264"/>
+      <stop offset="100%" stop-color="#346767"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#58D68D"/>
+      <stop offset="100%" stop-color="#45A049"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Marca (símbolo) à esquerda -->
+  <g transform="translate(24,24)">
+    <!-- Anel externo -->
+    <circle cx="104" cy="104" r="96" fill="none" stroke="#2E6264" stroke-width="12"/>
+    <!-- Livro aberto -->
+    <path d="M56 70
+             c0 -10 12 -18 28 -18
+             c20 0 36 8 48 18
+             c12 -10 28 -18 48 -18
+             c16 0 28 8 28 18
+             v70
+             c-8 -8 -22 -12 -36 -12
+             c-16 0 -32 6 -40 16
+             c-8 -10 -24 -16 -40 -16
+             c-14 0 -28 4 -36 12
+             z"
+          fill="url(#pageGrad)" stroke="#284F51" stroke-width="4" />
+    <!-- Conexões em rede (linhas) -->
+    <path d="M76 120 L132 98 L168 132" stroke="url(#accentGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Nós (pessoas/conexões) -->
+    <circle cx="76" cy="120" r="8" fill="#58D68D" stroke="#2E6264" stroke-width="3"/>
+    <circle cx="132" cy="98" r="8" fill="#58D68D" stroke="#2E6264" stroke-width="3"/>
+    <circle cx="168" cy="132" r="8" fill="#58D68D" stroke="#2E6264" stroke-width="3"/>
+  </g>
+
+  <!-- Wordmark à direita -->
+  <g transform="translate(280,34)">
+    <!-- Título -->
+    <text x="0" y="72"
+          font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">
+      Classe Conectada
+    </text>
+    <!-- Sub-linha decorativa -->
+    <rect x="2" y="92" width="520" height="8" rx="4" fill="url(#accentGrad)" />
+    <!-- Slogan opcional -->
+    <text x="0" y="140"
+          font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-size="26" font-weight="400" fill="#E6F5EF">
+      Educação, colaboração e tecnologia em um só lugar.
+    </text>
+  </g>
+</svg>

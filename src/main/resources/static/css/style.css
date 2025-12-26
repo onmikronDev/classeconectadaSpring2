@@ -1,0 +1,196 @@
+body {
+  margin:  0;
+  padding: 0;
+  font-family:  Arial, sans-serif;
+  background-color: #4D8889;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Acessibilidade */
+.sr-only {
+  position: absolute ! important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cabeçalho com logo */
+.main-header {
+  background-color: #4D8889;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 32px 24px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+/* Logo */
+.site-logo {
+  display: block;
+  width: clamp(150px, 50vw, 150px);
+  height: auto;
+  max-width: 95vw;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+/* Conteúdo principal */
+.menu-container {
+  margin: 32px auto;
+  width:  60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #2E6264;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  gap: 25px;
+  padding: 30px;
+}
+
+/* Botões */
+.menu-button {
+  width: 100%;
+  padding: 15px;
+  font-size:  18px;
+  color:  white;
+  background-color:  #254C50;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.menu-button:hover {
+  background-color: #3C5C61;
+  transform: scale(1.05);
+}
+
+.menu-button .icon {
+  font-size: 20px;
+}
+
+/* Modal */
+. modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #346767;
+  color: white;
+  width: 90%;
+  max-width:  600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2,
+.modal-content h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+. modal-content ul {
+  list-style: none;
+  padding: 0;
+  margin:  20px 0;
+}
+
+.modal-content ul li {
+  padding: 12px 15px;
+  background-color: #2E6264;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content ul li:hover {
+  background-color: #254C50;
+}
+
+/* Botão fechar modal */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  line-height: 1;
+  transition:  color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #E74C3C;
+}
+
+/* Rodapé */
+. custom-footer {
+  background-color: #4D8889;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top:  auto;
+  box-shadow:  0px -4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .menu-container {
+    width: 80%;
+  }
+  .modal-content {
+    width: 95%;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-logo {
+    width: clamp(120px, 40vw, 150px);
+  }
+  .menu-container {
+    width: 90%;
+    padding: 24px;
+    gap: 18px;
+  }
+  . menu-button {
+    font-size: 16px;
+    padding: 13px;
+  }
+  .modal-content {
+    padding: 20px;
+    max-height: 85vh;
+  }
+}

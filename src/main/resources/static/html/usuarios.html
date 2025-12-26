@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários - Classe Conectada</title>
+  <link rel="stylesheet" href="../css/usuarios.css">
+  <script src="../js/usuarios.js" defer></script>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo">
+    <img
+      src="../img/classe-conectada-icon_Version11.svg"
+      alt="Classe Conectada"
+      class="site-logo"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="sr-only">Classe Conectada</span>
+  </div>
+</header>
+
+<main class="usuarios-container">
+  <h1 class="page-title">Gerenciar Usuários</h1>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <div class="filter-group">
+      <label for="filterTipo">Filtrar por Tipo:</label>
+      <select id="filterTipo">
+        <option value="todos">Todos</option>
+        <option value="professor">Professor</option>
+        <option value="aluno">Aluno</option>
+        <option value="diretor">Diretor</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="searchNome">Buscar por Nome:</label>
+      <input type="text" id="searchNome" placeholder="Digite o nome... ">
+    </div>
+  </div>
+
+  <!-- Tabela de Usuários -->
+  <div class="table-container">
+    <table class="usuarios-table">
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Turma/Matéria</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody id="usuariosTableBody">
+      <!-- Preenchido dinamicamente pelo JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Botão Voltar -->
+  <div class="actions">
+    <button class="back-button" onclick="window.location.href='../html/index.html'">Voltar</button>
+  </div>
+</main>
+
+<!-- Modal de Edição -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeEditModal">&times;</span>
+    <h2>Editar Usuário</h2>
+    <form id="editForm" class="edit-form">
+      <input type="hidden" id="editId">
+
+      <div class="form-group">
+        <label for="editNome">Nome Completo:</label>
+        <input type="text" id="editNome" required>
+      </div>
+
+      <div class="form-group">
+        <label for="editEmail">Email:</label>
+        <input type="email" id="editEmail" required>
+      </div>
+
+      <div class="form-group">
+        <label for="editTelefone">Telefone:</label>
+        <input type="tel" id="editTelefone" required>
+      </div>
+
+      <div class="form-group">
+        <label for="editTipo">Tipo:</label>
+        <select id="editTipo" required>
+          <option value="professor">Professor</option>
+          <option value="aluno">Aluno</option>
+          <option value="diretor">Diretor</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="editTurmaGroup">
+        <label for="editTurma">Turma: </label>
+        <input type="text" id="editTurma">
+      </div>
+
+      <div class="form-group" id="editMateriaGroup">
+        <label for="editMateria">Matéria:</label>
+        <input type="text" id="editMateria">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save-button">Salvar</button>
+        <button type="button" class="cancel-button" id="cancelEdit">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="custom-footer">
+  <p>&copy; 2025 Classe Conectada.  Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

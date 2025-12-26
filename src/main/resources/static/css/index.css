@@ -1,0 +1,158 @@
+/* Estilo Global */
+body {
+  margin:  0;
+  padding: 0;
+  font-family:  Arial, sans-serif;
+  background-color: #4D8889;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Acessibilidade */
+.sr-only {
+  position: absolute ! important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cabeçalho com logo */
+.main-header {
+  background-color: #4D8889;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 32px 24px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+/* Logo */
+.site-logo {
+  display: block;
+  width: clamp(150px, 50vw, 150px);
+  height: auto;
+  max-width: 95vw;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+/* Conteúdo principal */
+.menu-container {
+  margin: 32px auto;
+  width:  60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #2E6264;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  gap: 25px;
+  padding: 30px;
+}
+
+/* Botões */
+.menu-button {
+  width: 100%;
+  padding: 15px;
+  font-size:  18px;
+  color:  white;
+  background-color:  #254C50;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.menu-button:hover {
+  background-color: #3C5C61;
+  transform: scale(1.05);
+}
+
+.menu-button .icon {
+  font-size: 20px;
+}
+/* Modal */
+.modal {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Sempre visível acima do restante */
+}
+
+.modal-content {
+  background-color: #346767; /* Fundo interno do modal */
+  color: white; /* Texto branco */
+  width: 90%;
+  max-width: 600px; /* Limita largura máxima */
+  border-radius: 10px; /* Bordas arredondadas */
+  padding: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra adicional */
+}
+
+.modal-content h2,
+.modal-content h3 {
+  text-align: center;
+  margin-bottom: 20px; /* Espaçamento entre o título e conteúdo */
+}
+
+.modal-content ul {
+  list-style: none; /* Remove marcadores padrão */
+  padding: 0;
+  margin: 20px 0;
+}
+
+.modal-content ul li {
+  padding: 10px;
+  background-color: #2E6264; /* Fundo dos itens */
+  margin: 10px 0; /* Espaçamento entre itens da lista */
+  border-radius: 5px; /* Bordas arredondadas dos itens */
+  cursor: pointer; /* Indica interatividade */
+}
+
+.modal-content ul li:hover {
+  background-color: #254C50; /* Fundo mais escuro no hover dos itens */
+}
+
+/* Fechar Modal */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Rodapé */
+.custom-footer {
+  background-color: #4D8889;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top:  auto;
+  box-shadow:  0px -4px 10px rgba(0, 0, 0, 0.5);
+}

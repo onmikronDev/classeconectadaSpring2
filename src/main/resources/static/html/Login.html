@@ -1,0 +1,94 @@
+<! DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Classe Conectada</title>
+  <link rel="stylesheet" href="../css/login.css">
+  <script src="../js/login.js" defer></script>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-box">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img
+        src="../img/classe-conectada-logo-stacked_Version600.svg"
+        alt="Classe Conectada"
+        class="login-logo"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Título -->
+    <h1 class="login-title">Bem-vindo</h1>
+    <p class="login-subtitle">Faça login para continuar</p>
+
+    <!-- Formulário -->
+    <form id="loginForm" class="login-form">
+      <div class="form-group">
+        <label for="email">
+          <span class="icon">📧</span>
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="seu@email.com"
+          required
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="senha">
+          <span class="icon">🔒</span>
+          Senha
+        </label>
+        <div class="password-container">
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Digite sua senha"
+            required
+            autocomplete="current-password"
+          >
+          <button type="button" class="toggle-password" id="togglePassword">
+            👁️
+          </button>
+        </div>
+      </div>
+
+      <!-- Lembrar-me e Esqueci a senha -->
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" id="lembrarMe" name="lembrarMe">
+          <span>Lembrar-me</span>
+        </label>
+        <a href="#" class="forgot-password">Esqueci minha senha</a>
+      </div>
+
+      <!-- Botão de Login -->
+      <button type="submit" class="login-button">Entrar</button>
+
+      <!-- Mensagem de erro -->
+      <div id="errorMessage" class="error-message" style="display: none;"></div>
+    </form>
+
+    <!-- Link para cadastro -->
+    <div class="signup-link">
+      Não tem uma conta? <a href="../html/cadastro.html">Cadastre-se</a>
+    </div>
+  </div>
+</div>
+
+<footer class="login-footer">
+  <p>&copy; 2025 Classe Conectada.  Todos os direitos reservados. </p>
+</footer>
+
+</body>
+</html>
