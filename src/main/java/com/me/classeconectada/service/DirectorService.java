@@ -1,6 +1,7 @@
 package com.me.classeconectada.service;
 
 import com.me.classeconectada.model.Director;
+import com.me.classeconectada.model.User;
 import com.me.classeconectada.repository.DirectorRepository;
 import com.me.classeconectada.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class DirectorService {
     public Director save(Director director) {
         // Validate email uniqueness
         if (director.getEmail() != null) {
-            Optional<com.me.classeconectada.model.User> existingUser = userRepository.findByEmail(director.getEmail());
+            Optional<User> existingUser = userRepository.findByEmail(director.getEmail());
             if (existingUser.isPresent()) {
                 throw new IllegalArgumentException("Email já está em uso");
             }
@@ -40,7 +41,7 @@ public class DirectorService {
         
         // Validate CPF uniqueness if provided
         if (director.getCpf() != null && !director.getCpf().isEmpty()) {
-            Optional<com.me.classeconectada.model.User> existingUserByCpf = userRepository.findByCpf(director.getCpf());
+            Optional<User> existingUserByCpf = userRepository.findByCpf(director.getCpf());
             if (existingUserByCpf.isPresent()) {
                 throw new IllegalArgumentException("CPF já está em uso");
             }
@@ -59,7 +60,7 @@ public class DirectorService {
         
         // Validate email uniqueness if email is being changed
         if (director.getEmail() != null && !director.getEmail().equals(existing.getEmail())) {
-            Optional<com.me.classeconectada.model.User> userWithEmail = userRepository.findByEmail(director.getEmail());
+            Optional<User> userWithEmail = userRepository.findByEmail(director.getEmail());
             if (userWithEmail.isPresent()) {
                 throw new IllegalArgumentException("Email já está em uso");
             }
@@ -67,7 +68,7 @@ public class DirectorService {
         
         // Validate CPF uniqueness if CPF is being changed
         if (director.getCpf() != null && !director.getCpf().isEmpty() && !director.getCpf().equals(existing.getCpf())) {
-            Optional<com.me.classeconectada.model.User> userWithCpf = userRepository.findByCpf(director.getCpf());
+            Optional<User> userWithCpf = userRepository.findByCpf(director.getCpf());
             if (userWithCpf.isPresent()) {
                 throw new IllegalArgumentException("CPF já está em uso");
             }
