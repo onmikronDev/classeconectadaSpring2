@@ -51,7 +51,6 @@ public class UserController {
     
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Map<String, Object> userData) {
-        // ✅ CORRIGIDO: Aceita Map para processar turmaId do JSON
         try {
             String nome = (String) userData.get("nome");
             String email = (String) userData.get("email");
@@ -64,6 +63,22 @@ public class UserController {
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Campos obrigatórios: nome, email, senha, tipo");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
+            
+            // Validate email uniqueness
+            if (userService.findByEmail(email).isPresent()) {
+                Map<String, Object> error = new HashMap<>();
+                error.put("error", "Email já está em uso");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
+            
+            // Validate CPF uniqueness if provided
+            if (cpf != null && !cpf.isEmpty()) {
+                if (userService.findByCpf(cpf).isPresent()) {
+                    Map<String, Object> error = new HashMap<>();
+                    error.put("error", "CPF já está em uso");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+                }
             }
             
             UserType tipo = UserType.valueOf(tipoStr.toUpperCase());
@@ -80,7 +95,6 @@ public class UserController {
                 student.setTipo(tipo);
                 student.setActive(true);
                 
-                // ✅ CORRIGIDO: Vincular turma se turmaId fornecido
                 if (userData.containsKey("turmaId") && userData.get("turmaId") != null) {
                     Object turmaIdObj = userData.get("turmaId");
                     Long turmaId = turmaIdObj instanceof Number ? ((Number) turmaIdObj).longValue() : Long.parseLong(turmaIdObj.toString());
@@ -100,7 +114,6 @@ public class UserController {
                 teacher.setTipo(tipo);
                 teacher.setActive(true);
                 
-                // ✅ CORRIGIDO: Vincular turma se turmaId fornecido
                 if (userData.containsKey("turmaId") && userData.get("turmaId") != null) {
                     Object turmaIdObj = userData.get("turmaId");
                     Long turmaId = turmaIdObj instanceof Number ? ((Number) turmaIdObj).longValue() : Long.parseLong(turmaIdObj.toString());
@@ -150,22 +163,123 @@ public class UserController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody User user) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Map<String, Object> userData) {
         try {
-            User updatedUser = userService.update(id, user);
+            // Find the user first to determine the type
+            User existingUser = userService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            
+            String nome = (String) userData.get("nome");
+            String email = (String) userData.get("email");
+            String senha = (String) userData.get("senha");
+            String cpf = (String) userData.get("cpf");
+            String telefone = (String) userData.get("telefone");
+            
+            // Validate email uniqueness if email is being changed
+            if (email != null && !email.equals(existingUser.getEmail())) {
+                if (userService.findByEmail(email).isPresent()) {
+                    Map<String, Object> error = new HashMap<>();
+                    error.put("error", "Email já está em uso");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+                }
+            }
+            
+            // Validate CPF uniqueness if CPF is being changed
+            if (cpf != null && !cpf.isEmpty() && !cpf.equals(existingUser.getCpf())) {
+                if (userService.findByCpf(cpf).isPresent()) {
+                    Map<String, Object> error = new HashMap<>();
+                    error.put("error", "CPF já está em uso");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+                }
+            }
+            
+            // Update common fields
+            if (nome != null) existingUser.setNome(nome);
+            if (email != null) existingUser.setEmail(email);
+            if (senha != null && !senha.isEmpty()) existingUser.setSenha(senha);
+            if (cpf != null) existingUser.setCpf(cpf);
+            if (telefone != null) existingUser.setTelefone(telefone);
+            
+            // Handle turmaId for Student and Teacher
+            if (userData.containsKey("turmaId")) {
+                if (existingUser instanceof Student) {
+                    Student student = (Student) existingUser;
+                    Object turmaIdObj = userData.get("turmaId");
+                    if (turmaIdObj != null) {
+                        Long turmaId = turmaIdObj instanceof Number ? ((Number) turmaIdObj).longValue() : Long.parseLong(turmaIdObj.toString());
+                        SchoolClass turma = schoolClassRepository.findById(turmaId)
+                            .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
+                        student.setTurma(turma);
+                    } else {
+                        student.setTurma(null);
+                    }
+                } else if (existingUser instanceof Teacher) {
+                    Teacher teacher = (Teacher) existingUser;
+                    Object turmaIdObj = userData.get("turmaId");
+                    if (turmaIdObj != null) {
+                        Long turmaId = turmaIdObj instanceof Number ? ((Number) turmaIdObj).longValue() : Long.parseLong(turmaIdObj.toString());
+                        SchoolClass turma = schoolClassRepository.findById(turmaId)
+                            .orElseThrow(() -> new RuntimeException("Turma não encontrada"));
+                        teacher.setTurma(turma);
+                    } else {
+                        teacher.setTurma(null);
+                    }
+                }
+            }
+            
+            // Save using the appropriate repository
+            User updatedUser;
+            if (existingUser instanceof Student) {
+                updatedUser = studentRepository.save((Student) existingUser);
+            } else if (existingUser instanceof Teacher) {
+                updatedUser = teacherRepository.save((Teacher) existingUser);
+            } else if (existingUser instanceof Director) {
+                updatedUser = directorRepository.save((Director) existingUser);
+            } else {
+                updatedUser = userService.save(existingUser);
+            }
+            
             return ResponseEntity.ok(updatedUser);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        } catch (Exception e) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Erro ao atualizar usuário: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
-            userService.delete(id);
+            User user = userService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            
+            // Soft delete by setting active to false
+            user.setActive(false);
+            
+            // Save using the appropriate repository
+            if (user instanceof Student) {
+                studentRepository.save((Student) user);
+            } else if (user instanceof Teacher) {
+                teacherRepository.save((Teacher) user);
+            } else if (user instanceof Director) {
+                directorRepository.save((Director) user);
+            } else {
+                userService.save(user);
+            }
+            
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        } catch (Exception e) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Erro ao deletar usuário: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
 }

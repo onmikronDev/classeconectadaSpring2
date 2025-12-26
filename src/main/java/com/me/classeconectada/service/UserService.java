@@ -31,6 +31,10 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
     
+    public Optional<User> findByCpf(String cpf) {
+        return userRepository.findByCpf(cpf);
+    }
+    
     public List<User> findByTipo(UserType tipo) {
         return userRepository.findByTipo(tipo);
     }
