@@ -1,5 +1,6 @@
 package com.me.classeconectada.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,10 +23,12 @@ public class User {
     private String nome;
     
     @Email(message = "Email inválido")
+    @NotBlank(message = "Email é obrigatório")
     @Column(unique = true)
     private String email;
     
     @NotBlank(message = "Senha é obrigatória")
+    @JsonIgnore
     private String senha;
     
     @Column(unique = true)

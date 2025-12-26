@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,10 @@ public class ObservationService {
     
     @Transactional
     public Observation save(Observation observation) {
+        // Set default date if not provided
+        if (observation.getDate() == null) {
+            observation.setDate(LocalDate.now());
+        }
         return observationRepository.save(observation);
     }
     
@@ -41,7 +46,9 @@ public class ObservationService {
             .orElseThrow(() -> new RuntimeException("Observação não encontrada"));
         
         existing.setContent(observation.getContent());
-        existing.setDate(observation.getDate());
+        if (observation.getDate() != null) {
+            existing.setDate(observation.getDate());
+        }
         
         return observationRepository.save(existing);
     }

@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/teachers")
@@ -35,22 +37,34 @@ public class TeacherController {
     }
     
     @PostMapping
-    public ResponseEntity<Teacher> create(@Valid @RequestBody Teacher teacher) {
+    public ResponseEntity<?> create(@Valid @RequestBody Teacher teacher) {
         try {
             Teacher savedTeacher = teacherService.save(teacher);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedTeacher);
+        } catch (IllegalArgumentException e) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Erro ao criar professor: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Teacher> update(@PathVariable Long id, @Valid @RequestBody Teacher teacher) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody Teacher teacher) {
         try {
             Teacher updatedTeacher = teacherService.update(id, teacher);
             return ResponseEntity.ok(updatedTeacher);
+        } catch (IllegalArgumentException e) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
         }
     }
     

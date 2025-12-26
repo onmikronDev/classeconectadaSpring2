@@ -1,6 +1,8 @@
 package com.me.classeconectada.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class Observation {
     
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
+    @NotNull(message = "Aluno é obrigatório")
     private Student student;
     
     @ManyToOne
@@ -26,6 +29,7 @@ public class Observation {
     private SchoolClass turma;
     
     @Column(length = 1000)
+    @NotBlank(message = "Conteúdo da observação é obrigatório")
     private String content;
     
     private LocalDate date;

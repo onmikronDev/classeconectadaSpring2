@@ -37,6 +37,22 @@ public class UserService {
     
     @Transactional
     public User save(User user) {
+        // Validate email uniqueness
+        if (user.getEmail() != null) {
+            Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+            if (existingUser.isPresent()) {
+                throw new IllegalArgumentException("Email já está em uso");
+            }
+        }
+        
+        // Validate CPF uniqueness if provided
+        if (user.getCpf() != null && !user.getCpf().isEmpty()) {
+            Optional<User> existingUserByCpf = userRepository.findByCpf(user.getCpf());
+            if (existingUserByCpf.isPresent()) {
+                throw new IllegalArgumentException("CPF já está em uso");
+            }
+        }
+        
         if (user.getActive() == null) {
             user.setActive(true);
         }
@@ -47,6 +63,22 @@ public class UserService {
     public User update(Long id, User user) {
         User existingUser = userRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        
+        // Validate email uniqueness if email is being changed
+        if (user.getEmail() != null && !user.getEmail().equals(existingUser.getEmail())) {
+            Optional<User> userWithEmail = userRepository.findByEmail(user.getEmail());
+            if (userWithEmail.isPresent()) {
+                throw new IllegalArgumentException("Email já está em uso");
+            }
+        }
+        
+        // Validate CPF uniqueness if CPF is being changed
+        if (user.getCpf() != null && !user.getCpf().isEmpty() && !user.getCpf().equals(existingUser.getCpf())) {
+            Optional<User> userWithCpf = userRepository.findByCpf(user.getCpf());
+            if (userWithCpf.isPresent()) {
+                throw new IllegalArgumentException("CPF já está em uso");
+            }
+        }
         
         existingUser.setNome(user.getNome());
         existingUser.setEmail(user.getEmail());
