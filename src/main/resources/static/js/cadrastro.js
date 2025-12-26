@@ -5,8 +5,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const diretorFields = document.getElementById("diretorFields");
   const form = document.getElementById("cadastroForm");
 
-  // ✅ CORRIGIDO: Carregar turmas da API
+  // ✅ CORRIGIDO: Carregar turmas e matérias da API
   await carregarTurmas();
+  await carregarMaterias();
 
   // Gerenciar abas
   tabButtons.forEach((button) => {
@@ -62,6 +63,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
       console.error('Erro ao carregar turmas:', error);
       alert('Erro ao carregar turmas. Verifique se o backend está rodando.');
+    }
+  }
+
+  // ✅ NOVO: Carregar matérias dinamicamente
+  async function carregarMaterias() {
+    try {
+      const response = await fetch('http://localhost:8080/api/subjects');
+      if (!response.ok) throw new Error('Erro ao carregar matérias');
+      
+      const materias = await response.json();
+      
+      // Preencher select de matéria para professor
+      const selectMateria = document.getElementById('materia');
+      selectMateria.innerHTML = '<option value="">Selecione uma matéria</option>';
+      materias.forEach(materia => {
+        const option = document.createElement('option');
+        option.value = materia.id;
+        option.textContent = materia.name;
+        selectMateria.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Erro ao carregar matérias:', error);
+      alert('Erro ao carregar matérias. Verifique se o backend está rodando.');
     }
   }
 
