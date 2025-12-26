@@ -1,5 +1,7 @@
 // ✅ CORRIGIDO: Dados carregados da API
 let usuarios = [];
+let turmas = [];
+let materias = [];
 
 let currentEditId = null;
 
@@ -26,6 +28,32 @@ async function carregarUsuarios() {
   } catch (error) {
     console.error('Erro ao carregar usuários:', error);
     alert('Erro ao carregar usuários. Verifique se o backend está rodando.');
+  }
+}
+
+// ✅ NOVO: Carregar turmas da API
+async function carregarTurmas() {
+  try {
+    const response = await fetch('http://localhost:8080/api/classes');
+    if (!response.ok) throw new Error('Erro ao carregar turmas');
+    
+    turmas = await response.json();
+  } catch (error) {
+    console.error('Erro ao carregar turmas:', error);
+    alert('Erro ao carregar turmas. Verifique se o backend está rodando.');
+  }
+}
+
+// ✅ NOVO: Carregar matérias da API
+async function carregarMaterias() {
+  try {
+    const response = await fetch('http://localhost:8080/api/subjects');
+    if (!response.ok) throw new Error('Erro ao carregar matérias');
+    
+    materias = await response.json();
+  } catch (error) {
+    console.error('Erro ao carregar matérias:', error);
+    alert('Erro ao carregar matérias. Verifique se o backend está rodando.');
   }
 }
 
@@ -75,7 +103,7 @@ function filterUsers() {
 }
 
 // Abrir modal de edição
-function openEditModal(id) {
+async function openEditModal(id) {
   const user = usuarios.find(u => u.id === id);
   if (!user) return;
 
@@ -85,8 +113,29 @@ function openEditModal(id) {
   document.getElementById("editEmail").value = user.email;
   document.getElementById("editTelefone").value = user.telefone || "";
   document.getElementById("editTipo").value = user.tipo.toLowerCase();
-  document.getElementById("editTurma").value = user.turma ? user.turma.id : "";
-  document.getElementById("editMateria").value = "";
+
+  // Preencher select de turmas
+  const selectTurma = document.getElementById("editTurma");
+  selectTurma.innerHTML = '<option value="">Selecione uma turma</option>';
+  turmas.forEach(turma => {
+    const option = document.createElement('option');
+    option.value = turma.id;
+    option.textContent = turma.name;
+    if (user.turma && user.turma.id === turma.id) {
+      option.selected = true;
+    }
+    selectTurma.appendChild(option);
+  });
+
+  // Preencher select de matérias
+  const selectMateria = document.getElementById("editMateria");
+  selectMateria.innerHTML = '<option value="">Selecione uma matéria</option>';
+  materias.forEach(materia => {
+    const option = document.createElement('option');
+    option.value = materia.id;
+    option.textContent = materia.name;
+    selectMateria.appendChild(option);
+  });
 
   updateEditFields();
   editModal.style.display = "flex";
@@ -109,14 +158,23 @@ function closeModal() {
 editForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const id = parseInt(document.getElementById("editId").value);
+  const tipo = document.getElementById("editTipo").value;
 
   const userData = {
     nome: document.getElementById("editNome").value,
     email: document.getElementById("editEmail").value,
     telefone: document.getElementById("editTelefone").value,
-    tipo: document.getElementById("editTipo").value.toUpperCase(),
+    tipo: tipo.toUpperCase(),
     cpf: usuarios.find(u => u.id === id)?.cpf || ""
   };
+
+  // Adicionar turmaId se for professor ou aluno
+  if (tipo === "professor" || tipo === "aluno") {
+    const turmaId = document.getElementById("editTurma").value;
+    if (turmaId) {
+      userData.turmaId = parseInt(turmaId);
+    }
+  }
 
   try {
     const response = await fetch(`http://localhost:8080/api/users/${id}`, {
@@ -177,4 +235,10 @@ window.addEventListener("click", (e) => {
 });
 
 // ✅ CORRIGIDO: Inicializar carregando dados da API
-carregarUsuarios();
+async function inicializar() {
+  await carregarUsuarios();
+  await carregarTurmas();
+  await carregarMaterias();
+}
+
+inicializar();
