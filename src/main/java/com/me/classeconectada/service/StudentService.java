@@ -1,6 +1,7 @@
 package com.me.classeconectada.service;
 
 import com.me.classeconectada.model.Student;
+import com.me.classeconectada.model.User;
 import com.me.classeconectada.repository.StudentRepository;
 import com.me.classeconectada.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class StudentService {
     public Student save(Student student) {
         // Validate email uniqueness
         if (student.getEmail() != null) {
-            Optional<com.me.classeconectada.model.User> existingUser = userRepository.findByEmail(student.getEmail());
+            Optional<User> existingUser = userRepository.findByEmail(student.getEmail());
             if (existingUser.isPresent()) {
                 throw new IllegalArgumentException("Email já está em uso");
             }
@@ -44,7 +45,7 @@ public class StudentService {
         
         // Validate CPF uniqueness if provided
         if (student.getCpf() != null && !student.getCpf().isEmpty()) {
-            Optional<com.me.classeconectada.model.User> existingUserByCpf = userRepository.findByCpf(student.getCpf());
+            Optional<User> existingUserByCpf = userRepository.findByCpf(student.getCpf());
             if (existingUserByCpf.isPresent()) {
                 throw new IllegalArgumentException("CPF já está em uso");
             }
@@ -63,7 +64,7 @@ public class StudentService {
         
         // Validate email uniqueness if email is being changed
         if (student.getEmail() != null && !student.getEmail().equals(existing.getEmail())) {
-            Optional<com.me.classeconectada.model.User> userWithEmail = userRepository.findByEmail(student.getEmail());
+            Optional<User> userWithEmail = userRepository.findByEmail(student.getEmail());
             if (userWithEmail.isPresent()) {
                 throw new IllegalArgumentException("Email já está em uso");
             }
@@ -71,7 +72,7 @@ public class StudentService {
         
         // Validate CPF uniqueness if CPF is being changed
         if (student.getCpf() != null && !student.getCpf().isEmpty() && !student.getCpf().equals(existing.getCpf())) {
-            Optional<com.me.classeconectada.model.User> userWithCpf = userRepository.findByCpf(student.getCpf());
+            Optional<User> userWithCpf = userRepository.findByCpf(student.getCpf());
             if (userWithCpf.isPresent()) {
                 throw new IllegalArgumentException("CPF já está em uso");
             }
