@@ -236,9 +236,7 @@ window.addEventListener("click", (e) => {
 
 // ✅ CORRIGIDO: Inicializar carregando dados da API
 async function inicializar() {
-  await carregarUsuarios();
-  await carregarTurmas();
-  await carregarMaterias();
+  await Promise.all([carregarUsuarios(), carregarTurmas(), carregarMaterias()]);
 }
 
 inicializar();
