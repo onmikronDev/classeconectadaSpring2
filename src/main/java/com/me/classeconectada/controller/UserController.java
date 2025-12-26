@@ -81,7 +81,7 @@ public class UserController {
                 student.setActive(true);
                 
                 // ✅ CORRIGIDO: Vincular turma se turmaId fornecido
-                if (userData.containsKey("turmaId")) {
+                if (userData.containsKey("turmaId") && userData.get("turmaId") != null) {
                     Object turmaIdObj = userData.get("turmaId");
                     Long turmaId = turmaIdObj instanceof Number ? ((Number) turmaIdObj).longValue() : Long.parseLong(turmaIdObj.toString());
                     SchoolClass turma = schoolClassRepository.findById(turmaId)
@@ -101,7 +101,7 @@ public class UserController {
                 teacher.setActive(true);
                 
                 // ✅ CORRIGIDO: Vincular turma se turmaId fornecido
-                if (userData.containsKey("turmaId")) {
+                if (userData.containsKey("turmaId") && userData.get("turmaId") != null) {
                     Object turmaIdObj = userData.get("turmaId");
                     Long turmaId = turmaIdObj instanceof Number ? ((Number) turmaIdObj).longValue() : Long.parseLong(turmaIdObj.toString());
                     SchoolClass turma = schoolClassRepository.findById(turmaId)
@@ -136,12 +136,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (IllegalArgumentException e) {
             Map<String, Object> error = new HashMap<>();
-            error.put("error", "Tipo de usuário inválido: " + e.getMessage());
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        } catch (RuntimeException e) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         } catch (Exception e) {
             Map<String, Object> error = new HashMap<>();
             error.put("error", "Erro ao criar usuário: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
     

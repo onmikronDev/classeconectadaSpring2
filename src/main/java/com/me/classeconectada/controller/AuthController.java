@@ -3,6 +3,7 @@ package com.me.classeconectada.controller;
 import com.me.classeconectada.dto.LoginDTO;
 import com.me.classeconectada.model.User;
 import com.me.classeconectada.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class AuthController {
     private final UserService userService;
     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO loginDTO) {
         User user = userService.authenticate(loginDTO.getEmail(), loginDTO.getSenha());
         
         if (user != null) {
